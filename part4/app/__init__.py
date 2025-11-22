@@ -3,6 +3,7 @@ from flask_restx import Api
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 import config
 
 bcrypt = Bcrypt()
@@ -21,6 +22,8 @@ def create_app(config_class=config.DevelopmentConfig):
     app = Flask(__name__)
         
     app.config.from_object(config_class)
+
+    CORS(app)
     
     # Initialisation des extensions
     bcrypt.init_app(app)
@@ -47,5 +50,8 @@ def create_app(config_class=config.DevelopmentConfig):
     api.add_namespace(reviews_ns, path='/api/v1/reviews')
     api.add_namespace(auth_ns, path='/api/v1/auth')
     api.add_namespace(protected_ns, path='/api/v1/protected')
+
+    with app.app_context():
+        db.create_all()
 
     return app

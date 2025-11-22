@@ -1,33 +1,60 @@
 from flask_restx import Namespace, Resource, fields
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt, get_jwt_identity
+from flask_jwt_extended import create_access_token
 from app.services import facade
 
 api = Namespace('auth', description='Authentication operations')
 
-# Model for input validation
+# MODEL LOGIN
 login_model = api.model('Login', {
-	'email': fields.String(required=True, description='User email'),
-	'password': fields.String(required=True, description='User password')
+    'email': fields.String(required=True),
+    'password': fields.String(required=True)
 })
+
+# MODEL REGISTER
+register_model = api.model('Register', {
+    'email': fields.String(required=True),
+    'password': fields.String(required=True),
+    'first_name': fields.String(required=True),
+    'last_name': fields.String(required=True)
+})
+
+@api.route('/register')
+class Register(Resource):
+    @api.expect(register_model)
+    def post(self):
+        """Create a new user"""
+
+        data = api.payload
+
+        # Vérifier si l'utilisateur existe
+        if facade.get_user_by_email(data['email']):
+            return {"error": "Email already exists"}, 400
+
+        # Créer l'utilisateur
+        user = facade.create_user(data)
+
+        if not user:
+            return {"error": "User creation failed"}, 500
+
+        return {"message": "User created successfully"}, 201
+
 
 @api.route('/login')
 class Login(Resource):
-	@api.expect(login_model)
-	def post(self):
-		"""Authenticate user and return a JWT token"""
-		credentials = api.payload  # Get the email and password from the request payload
-		
-		# Step 1: Retrieve the user based on the provided email
-		user = facade.get_user_by_email(credentials['email'])
-		
-		# Step 2: Check if the user exists and the password is correct
-		if not user or not user.verify_password(credentials['password']):
-			return {'error': 'Invalid credentials'}, 401
-		try:
-			# Step 3: Create a JWT token with the user's id and is_admin flag
-			access_token = create_access_token(identity=user.id, additional_claims={'is_admin': user.is_admin})
-		except Exception as e:
-			return {'error': str(e).strip("'")}, 500
+    @api.expect(login_model)
+    def post(self):
+        """Authenticate user and return JWT"""
+        credentials = api.payload
 
-		# Step 4: Return the JWT token to the client
-		return {'access_token': access_token}, 200
+        # Récupérer user
+        user = facade.get_user_by_email(credentials['email'])
+
+        if not user or not user.verify_password(credentials['password']):
+            return {"error": "Invalid credentials"}, 401
+
+        # Créer token
+        access_token = create_access_token(identity=user.id, additional_claims={
+            "is_admin": user.is_admin
+        })
+
+        return {"access_token": access_token}, 200

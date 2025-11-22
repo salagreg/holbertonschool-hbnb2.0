@@ -7,19 +7,50 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main>
-      <!-- Add something to idfentify the place you're reviewing -->
-      <form id="review-form">
-        <h2>Add a Review</h2>
-        <label for="review">Your Review:</label>
-        <textarea id="review" name="review" required></textarea>
-        <label for="rating">Rating:</label>
-        <select id="rating" name="rating" required>
-          <!-- Options for rating -->
-        </select>
-        <button type="submit">Submit Review</button>
-      </form>
+    <div class="vanta-birds"></div>
+
+    <header>
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="images/logo.png" alt="Logo" class="logo" />
+        </a>
+      </div>
+    </header>
+
+    <main class="add-review-main">
+      <div class="add-review-container">
+        <form id="review-form" class="form">
+          <h2>Ajouter un avis</h2>
+
+          <div class="form-group">
+            <label for="review">Votre avis :</label>
+            <textarea
+              id="review"
+              name="review"
+              rows="6"
+              placeholder="Partagez votre expérience..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="rating">Note :</label>
+            <select id="rating" name="rating" required>
+              <!-- Options ajoutées dynamiquement par JS -->
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn">Publier l'avis</button>
+        </form>
+      </div>
     </main>
+
+    <footer>
+      <p>all rights reserved</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
     <script src="scripts.js"></script>
   </body>
 </html>

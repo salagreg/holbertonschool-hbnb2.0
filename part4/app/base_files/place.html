@@ -7,23 +7,68 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main>
-      <section id="place-details">
-        <!-- Place details will be populated dynamically -->
+    <div class="vanta-birds"></div>
+    
+    <header>
+      <div class="logo-container">
+        <a href="index.html">
+          <img src="images/logo.png" alt="Logo" class="logo" />
+        </a>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+      </nav>
+    </header>
+    
+    <main class="place-details-main">
+      <section class="place-details">
+        <div class="place-info">
+          <h1 id="place-name"></h1>
+          <p class="place-price" id="place-price"></p>
+          <p class="place-host" id="place-host"></p>
+        </div>
+        <p id="place-description"></p>
+        
+        <div class="amenities">
+          <h3>Équipements</h3>
+          <ul id="amenities-list"></ul>
+        </div>
       </section>
-      <section id="reviews">
-        <!-- Reviews will be populated dynamically -->
+      
+      <section class="reviews-section">
+        <h2>Avis des voyageurs</h2>
+        <div id="reviews-list"></div>
       </section>
-      <section id="add-review">
-        <h2>Add a Review</h2>
-        <form id="review-form">
-          <label for="review-text">Review:</label>
-          <textarea id="review-text" name="review-text" required></textarea>
-
-          <button type="submit">Submit</button>
+      
+      <section class="add-review">
+        <h3>Ajouter un avis</h3>
+        
+        <!-- Bouton vers add_review.html -->
+        <a href="#" id="add-review-link" class="add-review-button" style="display:none;">
+          ✍️ Écrire un avis
+        </a>
+        
+        <!-- Ou formulaire inline -->
+        <form id="review-form" class="form" style="display:none;">
+          <div class="form-group">
+            <label for="review-text">Votre avis :</label>
+            <textarea id="review-text" rows="5" placeholder="Partagez votre expérience..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="review-rating">Note (1-5) :</label>
+            <input type="number" id="review-rating" min="1" max="5" placeholder="5" required />
+          </div>
+          <button type="submit" class="submit-review-btn">Publier l'avis</button>
         </form>
       </section>
     </main>
+    
+    <footer>
+      <p>all rights reserved</p>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
     <script src="scripts.js"></script>
   </body>
 </html>
