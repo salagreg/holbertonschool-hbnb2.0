@@ -93,6 +93,8 @@ Suppression d’un avis :
 ❓ Avis inexistant (404)
 ❌ Erreur serveur (500)
 
-📌 Conclusion
+
+# Conclusion : 
+
 L’application suit une architecture modulaire en couches, avec des diagrammes UML pour visualiser la structure et le flux des données.
 Cette organisation rend le projet maintenable, scalable, et clair à comprendre avant et après le développement.
