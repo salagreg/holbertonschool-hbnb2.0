@@ -1,85 +1,93 @@
-🏡 HBNB – Système de Réservation et Modélisation
+# HBNB – Système de Réservation et Modélisation
 
-🔍 Aperçu du projet
+
+## Aperçu du projet :
 
 Ce projet consiste à créer une application pour la réservation de logements, avec une architecture claire et des diagrammes UML détaillés.
 
 Les utilisateurs peuvent :
 
-Créer un compte et se connecter
-Parcourir les logements selon différents critères
-Ajouter des avis et notes
-Voir les équipements disponibles
+- Créer un compte et se connecter
+- Parcourir les logements selon différents critères
+- Ajouter des avis et notes
+- Voir les équipements disponibles
 
 Ce README présente l’organisation du code, les principales entités, et les diagrammes utilisés pour concevoir le système.
 
-🏗 Structure du projet
+
+## Structure du projet :
 
 L’application est organisée en trois couches principales :
 
-1️⃣ Interface Utilisateur
+1️⃣ __Interface Utilisateur__
 
 Gère l’affichage et l’interaction avec l’utilisateur.
 Les contrôleurs communiquent avec la couche métier via un point d’accès centralisé pour simplifier les appels.
 
-Exemples de contrôleurs :
+__Exemples de contrôleurs__ :
 
-UserController : gestion des comptes
-PlaceController : affichage et recherche de logements
-ReviewController : gestion des avis
+- UserController : gestion des comptes
+- PlaceController : affichage et recherche de logements
+- ReviewController : gestion des avis
 
-2️⃣ Logique Métier
+2️⃣ __Logique Métier__
 
 Contient les modèles et règles de gestion.
 Prépare les données avant leur envoi à la base de données.
 
-Exemples de modèles :
-User
-Place
-Review
+__Exemples de modèles__ :
+- User
+- Place
+- Review
 
-3️⃣ Accès aux Données
+3️⃣ __Accès aux Données__
 
 Interagit avec la base de données pour récupérer ou modifier les informations.
 Effectue des opérations CRUD sécurisées.
 
 Exemples :
-DatabaseConnector
-Repository
+- DatabaseConnector
+- Repository
 
-📊 Modèle de Données
+📊 __Modèle de Données__ :
 
 Les principales entités et leurs relations sont représentées dans le diagramme de classes.
 
-Principales entités
+__Principales entités__ :
 
 User : informations personnelles et statut administrateur
+
 Place : logement avec description, prix et propriétaire
+
 Review : avis et notes laissés par les utilisateurs
+
 Amenity : équipements disponibles
+
 AmenitiesPlaces : lien entre logements et équipements
 
-Relations clés
+
+## Relations clés :
 
 Composition : un avis ne peut exister sans logement
 Agrégation : les équipements existent indépendamment des logements
 
-🔄 Exemples de Scénarios (Diagrammes de Séquence)
+## Exemples de Scénarios (Diagrammes de Séquence)
 
-Création de compte
+Création de compte :
 
 ✅ Compte créé avec succès
 ⚠️ Erreur de données (400)
 🔄 Email déjà utilisé (409)
 ❌ Erreur serveur (500)
 
-Recherche de logements
+Recherche de logements :
 
 ✅ Résultats conformes aux critères
 ⚠️ Critères invalides (400)
 ❌ Problème lors de la recherche (500)
 
-Suppression d’un avis
+Suppression d’un avis :
+
 ✅ Avis supprimé (204)
 ⚠️ ID invalide (400)
 ❓ Avis inexistant (404)
