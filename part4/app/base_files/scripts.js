@@ -319,33 +319,26 @@ function filterPlacesByPrice(maxPrice) {
 // ============================================
 
 function initPlaceDetailsPage() {
-  console.log("📍 Initialisation de la page place details");
-  
-  // Récupérer l'ID depuis l'URL
   const placeId = getPlaceIdFromURL();
-  if (!placeId) {
-    console.error("❌ Aucun ID de place dans l'URL");
-    return;
-  }
-  
-  console.log("🆔 Place ID:", placeId);
-  
   const token = getCookie("token");
   
-  // Charger les détails de la place
   fetchPlaceDetails(token, placeId);
   
-  // Gérer l'affichage du formulaire de review
+  // Afficher le lien add_review si connecté
+  const addReviewLink = document.getElementById("add-review-link");
+  if (addReviewLink) {
+    if (token) {
+      addReviewLink.href = `add_review.html?id=${placeId}`;
+      addReviewLink.style.display = "inline-block";
+    }
+  }
+  
+  // Gérer le formulaire inline
   const reviewForm = document.getElementById("review-form");
   if (reviewForm) {
-    if (!token) {
-      reviewForm.style.display = "none";
-      console.log("❌ Formulaire masqué (non connecté)");
-    } else {
-      reviewForm.style.display = "block";
-      console.log("✅ Formulaire affiché (connecté)");
-      
-      // Event listener pour soumettre une review
+    reviewForm.style.display = token ? "block" : "none";
+    
+    if (token) {
       reviewForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         await submitReview(token, placeId);
